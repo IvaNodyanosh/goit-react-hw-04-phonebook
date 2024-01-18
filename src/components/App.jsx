@@ -43,8 +43,6 @@ export const App = () => {
   
   }, [contacts])
 
-
-
   const formSubmit = (e, name, number) => {
     if (contacts.some(concat => concat.name === name)) {
       e.preventDefault()
