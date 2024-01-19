@@ -1,29 +1,24 @@
 import css from './contactForm.module.css';
-import { useReducer } from 'react';
+import { useState } from 'react';
 import { RiContactsFill } from 'react-icons/ri';
 import { BsTelephoneFill } from 'react-icons/bs';
 import { BsPersonFillAdd } from 'react-icons/bs';
 
-const reducer = (prevContactInfo, action) => {
-  if (action.type === 'name' || action.type === 'number') {
-    return { ...prevContactInfo, [action.type]: action.value };
-  } else if(action.type === "reset"){
-    return { name: '', number: '' };
-  }
-};
-
 export const ContactForm = ({ formSubmit }) => {
-  const [contactInfo, changeContactInfo] = useReducer(reducer, {
+  const [contactInfo, changeContactInfo] = useState({
     name: '',
     number: '',
   });
 
   const changeInput = e => {
-      changeContactInfo({ type: e.target.name, value: e.target.value } );
+    changeContactInfo(prevInfo => ({
+      ...prevInfo,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const formReset = () => {
-    changeContactInfo({type:"reset"})
+    changeContactInfo({ name: '', number: '' });
   };
 
   const { name, number } = contactInfo;
@@ -41,7 +36,7 @@ export const ContactForm = ({ formSubmit }) => {
           type="text"
           name="name"
           required
-          onChange={e => changeInput(e)}
+          onChange={changeInput}
           value={name}
           placeholder="Name"
         />
@@ -52,7 +47,7 @@ export const ContactForm = ({ formSubmit }) => {
           type="tel"
           name="number"
           required
-          onChange={e => changeInput(e)}
+          onChange={changeInput}
           value={number}
           placeholder="Number"
         />

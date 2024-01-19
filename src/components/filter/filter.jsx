@@ -1,7 +1,7 @@
 import { RiUserSearchFill } from 'react-icons/ri';
 import css from './filter.module.css';
 
-export const Filter = ({filter, changeInput}) => {
+export const Filter = ({ filter, changeInput }) => {
   return (
     <label className={css.filter__label}>
       <RiUserSearchFill className={css.filter__icon} />
@@ -11,7 +11,7 @@ export const Filter = ({filter, changeInput}) => {
         className={css.filter__input}
         placeholder="Find contact by Name"
         required
-        onChange={e => changeInput(e)}
+        onChange={changeInput}
         value={filter}
       />
     </label>
